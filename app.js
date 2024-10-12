@@ -1,16 +1,22 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
 
 
+//! body-parser
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 //!postgresql connection
-const dbConnection = require('./config/db.connection')
-dbConnection()
+const {connectDB} = require('./src/config/db.connection')
+connectDB()
 
-app.get('/', (req,res) => {
-    
-})
+//! routes
+const routes = require('./src/routes/index.routes')
+app.use('/api/v1', routes)
 
-app.listen(3000, () => {
-    console.log("server is running...")
+
+
+app.listen(process.env.PORT || 5001, () => {
+    console.log(`Server is Running ${process.env.PORT || 5001}`)
 })
