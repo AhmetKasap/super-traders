@@ -1,27 +1,29 @@
 const userModel = require('../models/user.model')
+const APIError = require('../utils/Error')
+const Response = require('../utils/Response')
 
 const login = async(req,res) => {
 
-    const mod = await userModel.create({
-        firstNmae : "ahmet",
-        lastname : "kasap",
-        email : "aahmetkasap@gmail.com",
-        password : "test"
-    })
-    console.log(mod)
+   
 
 }
 
 const register = async(req,res) => {
 
     const user = req.body
-    const mod = await userModel.create({
-        firstName : "ahmet",
-        lastName : "kasap",
-        email : "aahmetkasap@gmail.com",
-        password : "test"
+
+    const isThereUser = await userModel.findOne({
+        where : {email : user.email}
     })
-    console.log(mod)
+    if(isThereUser) return new Response(null, 'this email is already registered').badRequest(res)
+     
+    const userRegistered = await userModel.create({
+        firstName : user.firstName,
+        lastName : user.lastName,
+        email : user.email,
+        password : user.password
+    })
+    if(userRegistered) return new Response(null, 'registration successful').created(res)
     
 }
 

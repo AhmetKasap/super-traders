@@ -15,6 +15,13 @@ connectDB()
 const routes = require('./src/routes/index.routes')
 app.use('/api/v1', routes)
 
+app.use((req,res, next) => {
+    res.send('not found url')
+    next()
+})
+
+const errorHandler = require('./src/middlewares/errorHandler')
+app.use(errorHandler)
 
 
 app.listen(process.env.PORT || 5001, () => {
