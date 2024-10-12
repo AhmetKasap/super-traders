@@ -1,21 +1,20 @@
 const jwt = require('jsonwebtoken')
-const Response = require('../utils/Response')
-const userModel = require('../models/user.model')
-const APIError = require('../utils/Error')
+const Response = require('../../utils/Response')
+const adminModel = require('../../models/admin.model')
+const APIError = require('../../utils/Error')
 require('dotenv').config()
 
 
-const createToken = async (user,res) => {
+const createToken = async (admin,res) => {
     const payload = {
-        id : user.id,
-        email : user.email
+        id : admin.id,
+        email : admin.email
     }
-    console.log(payload)
     const token = await jwt.sign({payload}, process.env.JWT_SECRET, {expiresIn : process.env.JWT_EXPIRES_IN, algorithm:"HS512"})
     
     if (token) {
         const response = {
-            user, token
+            admin, token
         }
         return new Response(response, "token created successfully, login successfully").ok(res)
     }
@@ -34,14 +33,13 @@ const checkToken = async (req,res,next) => {
                 throw new APIError("Token could not be decoded", 500)
             }
             else {
-                const userInfo = await userModel.findOne({where : {id : decoded.payload.id}})
-                //console.log("user Info :", userInfo)
-                if(!userInfo) {
+                const adminInfo = await adminModel.findOne({where : {id : decoded.payload.id}})
+                //console.log("admin Info :", adminInfo)
+                if(!adminInfo) {
                     throw new APIError("User not found in the database", 404)
                 }
                 else{
-                    req.authUser = userInfo         //Either one works,
-                    //res.locals.authUser = userInfo;
+                    req.authAdmin = adminInfo         
                     next()
                 }
             }

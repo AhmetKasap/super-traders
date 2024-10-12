@@ -2,7 +2,7 @@ const userModel = require('../models/user.model')
 const APIError = require('../utils/Error')
 const Response = require('../utils/Response')
 const bcrypt = require('bcrypt')
-const authMiddlewares = require('../middlewares/auth.middlewares')
+const authMiddlewares = require('../middlewares/auth/user.auth.middlewares')
 
 const login = async(req,res) => {
     const user = req.body
