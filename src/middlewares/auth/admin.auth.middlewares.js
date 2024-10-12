@@ -39,7 +39,7 @@ const checkToken = async (req,res,next) => {
                     throw new APIError("User not found in the database", 404)
                 }
                 else{
-                    req.authAdmin = adminInfo         
+                    req.authAdmin = adminInfo.dataValues         
                     next()
                 }
             }
