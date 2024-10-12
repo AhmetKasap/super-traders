@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: true }))
 const {connectDB} = require('./src/config/db.connection')
 connectDB()
 
+//! Rate Limit
+const limit = require('./src/middlewares/lib/rateLimit')
+//app.use('/api/v1',limit)
+
 //! routes
 const routes = require('./src/routes/index.routes')
 app.use('/api/v1', routes)
