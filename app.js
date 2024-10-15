@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: true }))
 const {connectDB} = require('./src/config/db.connection')
 connectDB()
 
+//! postgresql assosactions
+const {assosaction} = require('./src/config/associations')
+assosaction()
+
 //! Rate Limit
 const limit = require('./src/middlewares/lib/rateLimit')
 //app.use('/api/v1',limit)
