@@ -14,12 +14,9 @@ const PortfolioModel = sequelize.define('Portfolios', {
     type: DataTypes.UUID,
     allowNull: false,
     unique : true
-  },
-
-  shareId: {
-    type: DataTypes.UUID,
-    allowNull: false,
   }
+
+
 
 })
 

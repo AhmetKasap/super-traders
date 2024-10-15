@@ -8,9 +8,7 @@ const authMiddlewares = require('../middlewares/auth/user.auth.middlewares')
 
 const login = async(req,res) => {
     const user = req.body
-    console.log(user)
-    
-
+        
     const isThereEmail = await UserModel.findOne({
         where : {email : user.email}
     })
@@ -41,7 +39,8 @@ const register = async(req,res) => {
     })
     if(userRegistered) {
         await PortfolioModel.create({
-            userId : userRegistered.dataValues.id
+            userId : userRegistered.dataValues.id,
+            shareId : null
         })
         return new Response(null, 'registration successful').created(res)
     }

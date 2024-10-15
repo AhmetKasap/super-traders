@@ -1,8 +1,8 @@
 const { PortfolioModel } = require('../models/portfolio.model')
 const { UserModel } = require('../models/user.model')
 const { ShareModel } = require('../models/share.model')
-
-
+const {TradeModel} = require('../models/trade.model')
+const {PortfolioShareModel} = require('../models/portfolio.share.model')
 
 const assosaction = () => {
 
@@ -17,14 +17,18 @@ const assosaction = () => {
   })
 
 
-  //? Portfolio Model - Share Model (One to many)
-  PortfolioModel.hasMany(ShareModel, {
-    foreignKey: 'portfolioId', 
-    onDelete: 'CASCADE', 
-  })
-
-  ShareModel.belongsTo(PortfolioModel, {
+  //? Portfolio Model - Share Model (many to many)
+  PortfolioModel.belongsToMany(ShareModel, {
+    through: PortfolioShareModel,
     foreignKey: 'portfolioId',
+    otherKey: 'shareId',
+  })
+  
+  // Share - PortfolioShare ilişkisi
+  ShareModel.belongsToMany(PortfolioModel, {
+    through: PortfolioShareModel,
+    foreignKey: 'shareId',
+    otherKey: 'portfolioId',
   })
 
 

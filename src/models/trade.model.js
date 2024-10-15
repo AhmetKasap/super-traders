@@ -13,15 +13,9 @@ const TradeModel = sequelize.define('Trades', {
   userId: {
     type: DataTypes.UUID,
     allowNull: false,
-    unique : true
   },
 
   shareId: {
-    type: DataTypes.UUID,
-    allowNull: false,
-  },
-
-  portfolioId: {
     type: DataTypes.UUID,
     allowNull: false,
   },
