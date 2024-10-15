@@ -5,7 +5,7 @@ const {buy,sell} = require('../controllers/trade.controller')
 const userAuthMiddelwares = require('../middlewares/auth/user.auth.middlewares') 
 
 router.post('/buy', userAuthMiddelwares.checkToken, buy)
-router.post('/sell', )
+router.post('/sell', userAuthMiddelwares.checkToken, sell)
 
 
 
