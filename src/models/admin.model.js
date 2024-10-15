@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/db.connection');
 
-const Admin = sequelize.define('Admin', {
+const AdminModel = sequelize.define('Admins', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -25,4 +25,4 @@ const Admin = sequelize.define('Admin', {
   },
 })
 
-module.exports = Admin
+module.exports = {AdminModel}

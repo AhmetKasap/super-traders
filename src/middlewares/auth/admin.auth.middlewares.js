@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const Response = require('../../utils/Response')
-const adminModel = require('../../models/admin.model')
+const {AdminModel} = require('../../models/admin.model')
 const APIError = require('../../utils/Error')
 require('dotenv').config()
 
@@ -33,7 +33,7 @@ const checkToken = async (req,res,next) => {
                 throw new APIError("Token could not be decoded", 500)
             }
             else {
-                const adminInfo = await adminModel.findOne({where : {id : decoded.payload.id}})
+                const adminInfo = await AdminModel.findOne({where : {id : decoded.payload.id}})
                 //console.log("admin Info :", adminInfo)
                 if(!adminInfo) {
                     throw new APIError("User not found in the database", 404)

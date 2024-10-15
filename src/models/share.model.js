@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../config/db.connection')
 
-const Share = sequelize.define('Share', {
+const ShareModel = sequelize.define('Shares', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -42,4 +42,4 @@ const Share = sequelize.define('Share', {
   },
 })
 
-module.exports = Share
+module.exports = {ShareModel}

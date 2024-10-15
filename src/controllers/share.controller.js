@@ -1,4 +1,4 @@
-const shareModel = require('../models/share.model')
+const {ShareModel} = require('../models/share.model')
 const APIError = require('../utils/Error')
 const Response = require('../utils/Response')
 
@@ -8,8 +8,7 @@ const addShare = async(req,res) => {
 
     const share = req.body
 
-
-    const createShare = await shareModel.create({
+    const createShare = await ShareModel.create({
         name : share.name,
         symbol : share.symbol,
         price : share.price,
@@ -22,7 +21,7 @@ const addShare = async(req,res) => {
 
 
 const getShares = async(req,res) => {
-    const shares = await shareModel.findAll()
+    const shares = await ShareModel.findAll()
     if(shares.length === 0 ) return new Response(null, 'no shares').notfound(res)
 
     const result = shares.map(share => share.dataValues)
