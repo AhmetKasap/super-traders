@@ -16,6 +16,10 @@ connectDB()
 const {assosaction} = require('./src/config/associations')
 assosaction()
 
+//! hourly shares update
+const {job} = require('./src/helpers/update.shares')
+job()
+
 //! Rate Limit
 const limit = require('./src/middlewares/lib/rateLimit')
 //app.use('/api/v1',limit)
