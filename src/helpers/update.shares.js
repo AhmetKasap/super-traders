@@ -19,10 +19,9 @@ const updatePrices = async () => {
 };
 
 const job = () => {
-    cron.schedule('* * * * *', async () => {  
-        console.log('Updating share prices...')
+    cron.schedule('0 * * * *', async () => {  // 1 dakikada bir için --> ('* * * * *)
         await updatePrices()
-    });
-};
+    })
+}
 
 module.exports = { job }

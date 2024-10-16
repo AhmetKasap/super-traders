@@ -1,0 +1,18 @@
+version: "3.8"    
+
+services:
+  node-server:    
+    build: .     
+    ports:  
+      - 5000:5000  
+    env_file:
+      - .env 
+  
+  postgresql: 
+    image: postgres
+    ports: 
+      - 27017:27017
+    volumes:       
+      - postgres_data:/postgresql/data 
+volumes:
+  postgres_data:
