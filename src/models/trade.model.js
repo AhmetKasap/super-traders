@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/db.connection')
-
+const {ShareModel} = require('../models/share.model')
 
 
 const TradeModel = sequelize.define('Trades', {
@@ -33,9 +33,17 @@ const TradeModel = sequelize.define('Trades', {
     },
   },
 
-
-
-
+}, {
+  hooks: {
+    afterCreate: async (trade) => {
+      const share = await ShareModel.findOne({ where: { id: trade.shareId } });
+      if (trade.tradeType === 'BUY') {
+        await share.update({ quantity: share.quantity - trade.quantity });
+      } else if (trade.tradeType === 'SELL') {
+        await share.update({ quantity: share.quantity + trade.quantity });
+      }
+    },
+  },
 })
 
 
