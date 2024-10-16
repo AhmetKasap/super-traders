@@ -19,7 +19,7 @@ const updatePrices = async () => {
 };
 
 const job = () => {
-    cron.schedule('0 * * * *', async () => {  // 1 dakikada bir için --> ('* * * * *)
+    cron.schedule('* * * * *', async () => {  // 1 dakikada bir için --> ('* * * * *)
         await updatePrices()
     })
 }
