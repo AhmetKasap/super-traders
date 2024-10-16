@@ -3,6 +3,7 @@ Nodejs (Express.js) - Postgresql(Sequelize)
 TO RUN THE API
 
 1- npm i
+
 2- npm start 
 
 OR 

@@ -36,7 +36,7 @@ const checkToken = async (req,res,next) => {
                 const adminInfo = await AdminModel.findOne({where : {id : decoded.payload.id}})
                 //console.log("admin Info :", adminInfo)
                 if(!adminInfo) {
-                    throw new APIError("User not found in the database", 404)
+                    throw new APIError("Admin not found in the database", 404)
                 }
                 else{
                     req.authAdmin = adminInfo.dataValues         

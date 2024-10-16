@@ -7,7 +7,7 @@ const {shareValidation} = require('../middlewares/validations/share.validations'
 
 router.post('/', adminAuthMiddlewares.checkToken, shareValidation, addShare)
 router.get('/', getShares)
-router.put('/:id', adminAuthMiddlewares.checkToken, updateShare)
+router.put('/:id', adminAuthMiddlewares.checkToken, shareValidation, updateShare)
 router.delete('/:id', adminAuthMiddlewares.checkToken, deleteShare)
 
 

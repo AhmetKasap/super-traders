@@ -30,10 +30,42 @@ const getShares = async(req,res) => {
 }
 
 
-const updateShare = async(req,res) => {
+const updateShare = async (req, res) => {
+    const authAdmin = req.authAdmin
+    if (!authAdmin) return new Response(null, 'unauthorized operation').unauthorized(res)
+
+    const { id } = req.params;
+    const { name, symbol, price, quantity } = req.body
+
+    const share = await ShareModel.findByPk(id)
+
+    if (!share) return new Response(null, 'share not found').notfound(res)
     
-}
-const deleteShare = async(req,res) => {
+
+    await share.update({
+        name: name || share.name,
+        symbol: symbol || share.symbol,
+        price: price || share.price,
+        quantity: quantity || share.quantity,
+    })
+
+    return new Response(share, 'share updated successfully').ok(res)
+};
+
+const deleteShare = async (req, res) => {
+    const authAdmin = req.authAdmin
+    if (!authAdmin) return new Response(null, 'unauthorized operation').unauthorized(res)
+
+    const { id } = req.params
+
+    const share = await ShareModel.findOne({where : {id : req.params.id}})
+    if (!share) return new Response(null, 'not found share').notfound(res)
+
+    const deleted = await ShareModel.destroy({ where: { id } })
+
+    if (deleted) return new Response(null, 'share deleted successfully').ok(res)
+    else return new Response(null, 'share not found').notfound(res)
+
     
 }
 

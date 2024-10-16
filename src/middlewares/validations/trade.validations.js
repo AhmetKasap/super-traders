@@ -8,10 +8,6 @@ const tradeValidation = async (req, res, next) => {
         .messages({
           "string.uuid": "\"shareId\" must be a valid UUID"
         }),
-      tradeType: joi.string().valid('BUY', 'SELL').required()
-        .messages({
-          "any.only": "\"tradeType\" must be either 'BUY' or 'SELL'"
-        }),
       quantity: joi.number().integer().positive().required()
         .messages({
           "number.base": "\"quantity\" must be a number",
